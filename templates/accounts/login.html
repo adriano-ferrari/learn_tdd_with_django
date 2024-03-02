@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
+
 {% block content %}
+
 <h1>Login</h1>
+
 <form action="" method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Login" class="btn btn-primary" />
   <br />
-  <small
-    ><p><a href="#">Forgot Password?</a></p></small
-  >
+  <small>
+    <p>
+      <a href="#">Forgot Password?</a>
+    </p>
+  </small>
 </form>
 <br />
 <br />
+
 {% endblock content %}
