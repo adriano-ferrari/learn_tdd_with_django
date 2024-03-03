@@ -7,11 +7,10 @@ class PostCreationForm(forms.ModelForm):
                             widget=forms.TextInput(
                                 attrs={'class': 'form-control'}
                             ))
-    body = forms.CharField(max_length=50,widget=forms.Textarea(
-        attrs={
-            'class': 'form-control'
-        }
-    ))
+    body = forms.CharField(max_length=500,
+                           widget=forms.Textarea(
+                               attrs={'class': 'form-control'}
+                           ))
 
     class Meta:
         model = Post
