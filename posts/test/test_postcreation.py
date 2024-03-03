@@ -13,11 +13,11 @@ User = get_user_model()
 
 class PostCreationTest(TestCase):
     def setUp(self):
-        self.url=reverse('create_post')
-        self.template_name='posts/createpost.html'
-        self.form_class=PostCreationForm
-        self.title="Sample title"
-        self.body="Sample body for the sample text"
+        self.url = reverse('create_post')
+        self.template_name = 'posts/createpost.html'
+        self.form_class = PostCreationForm
+        self.title = "Sample title"
+        self.body = "Sample body for the sample text"
 
         User.objects.create_user(
             username='testuser',
@@ -29,7 +29,7 @@ class PostCreationTest(TestCase):
         self.client.login(username='testuser', password='testpassword123##')
         response = self.client.get(self.url)
 
-        self.assertEqual(response.status_code,HTTPStatus.OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, self.template_name)
 
         form = response.context.get('form', None)
@@ -49,17 +49,15 @@ class PostCreationTest(TestCase):
         self.assertTrue(form.is_valid())
 
         post_obj = form.save(commit=False)
-        self.assertIsInstance(post_obj,Post)
+        self.assertIsInstance(post_obj, Post)
 
         post_obj.author = post_request.user
         post_obj.save()
 
-        self.assertEqual(Post.objects.count(),1)
+        self.assertEqual(Post.objects.count(), 1)
 
-    '''
     def test_post_creation_requires_login(self):
         response = self.client.get(self.url)
 
-        self.assertEqual(response.status_code,HTTPStatus.FOUND)
-        self.assertRedirects(response,expected_url='/accounts/login/?next=/create_post/')
-'''
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertRedirects(response, expected_url='/accounts/login/?next=/create_post/')

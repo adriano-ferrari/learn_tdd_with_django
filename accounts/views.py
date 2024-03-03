@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from .forms import UserRegistrationForm
+from posts.models import Post
 
 
 def register_user(request):
@@ -19,14 +21,14 @@ def register_user(request):
 
     context = {'form': form}
 
-    return render(request,'accounts/register.html', context)
+    return render(request, 'accounts/register.html', context)
 
 
 def login_page(request):
     form = AuthenticationForm()
 
     if request.method == "POST":
-        form = AuthenticationForm(request,request.POST)
+        form = AuthenticationForm(request, request.POST)
 
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -41,9 +43,21 @@ def login_page(request):
 
     context = {'form': form}
 
-    return render(request,"accounts/login.html", context)
+    return render(request, "accounts/login.html", context)
 
 
 def logout_user(request):
     logout(request)
     return redirect(reverse('homepage'))
+
+
+@login_required
+def current_user_profile(request):
+    user = request.user
+    posts = Post.objects.filter(author=user).all()
+    context = {
+        'user': user,
+        'posts': posts
+    }
+
+    return render(request, 'accounts/currentuserprofile.html', context)
