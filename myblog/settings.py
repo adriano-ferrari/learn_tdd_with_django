@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party
+    'crispy_forms',
+    'crispy_bootstrap5',
     # MyApps
     'posts.apps.PostsConfig',
     'accounts.apps.AccountsConfig',
-    # 3rdPartyApps
-    'crispy_forms',
 ]
 
-CRISPY_TEMPLATE_PACK='bootstrap'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +133,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL SETTINGS
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

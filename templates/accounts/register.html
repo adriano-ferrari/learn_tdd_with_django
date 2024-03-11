@@ -6,7 +6,7 @@
 <h1>Create your account today</h1>
 <form action="" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   <input type="submit" value="Sign Up" class="btn btn-primary" />
 </form>
 <br />
